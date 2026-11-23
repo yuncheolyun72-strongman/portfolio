@@ -73,14 +73,14 @@
     const filters = document.getElementById("filters");
     const tiles = document.getElementById("tiles");
     const cats = CAT_ORDER.filter((c) => others.some((p) => p.cat === c));
-    let current = "all";
+    let current = cats[0];
 
     function drawFilters() {
       const btn = (key, label, n) => `<li><button type="button" data-cat="${key}" aria-pressed="${current === key}">${label}<sup>${n}</sup></button></li>`;
-      filters.innerHTML = btn("all", "전체", others.length) + cats.map((c) => btn(c, catName(c), others.filter((p) => p.cat === c).length)).join("");
+      filters.innerHTML = cats.map((c) => btn(c, catName(c), others.filter((p) => p.cat === c).length)).join("");
     }
     function drawTiles() {
-      const list = current === "all" ? others : others.filter((p) => p.cat === current);
+      const list = others.filter((p) => p.cat === current);
       tiles.innerHTML = list.length ? list.map((p) => `
         <a class="tile" href="${link(p)}">
           <div class="tile-media"><img src="${esc(src(p.img))}" alt="" loading="lazy"></div>
